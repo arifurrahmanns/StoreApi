@@ -361,185 +361,181 @@ class ProductSchema extends AbstractSchema
 							],
 						],
 						'item' => [
-							'type'        => 'array',
+							'type'        => 'object',
 							'context'     => ['view', 'edit'],
-							'items' => [
-								'type'       => 'object',
-								'type' => 'object',
-								'properties' => [
-									'id'                  => [
-										'description' => __('Unique identifier for the resource.', 'woocommerce'),
-										'type'        => 'integer',
-										'context'     => ['view', 'edit'],
-										'readonly'    => true,
-									],
-									'name'                => [
-										'description' => __('Product name.', 'woocommerce'),
-										'type'        => 'string',
-										'context'     => ['view', 'edit'],
-									],
-									'slug'                => [
-										'description' => __('Product slug.', 'woocommerce'),
-										'type'        => 'string',
-										'context'     => ['view', 'edit'],
-									],
-									'parent'              => [
-										'description' => __('ID of the parent product, if applicable.', 'woocommerce'),
-										'type'        => 'integer',
-										'context'     => ['view', 'edit'],
-										'readonly'    => true,
-									],
-									'type'                => [
-										'description' => __('Product type.', 'woocommerce'),
-										'type'        => 'string',
-										'context'     => ['view', 'edit'],
-										'readonly'    => true,
-									],
-									'variation'           => [
-										'description' => __('Product variation attributes, if applicable.', 'woocommerce'),
-										'type'        => 'string',
-										'context'     => ['view', 'edit'],
-									],
-									'permalink'           => [
-										'description' => __('Product URL.', 'woocommerce'),
-										'type'        => 'string',
-										'format'      => 'uri',
-										'context'     => ['view', 'edit'],
-										'readonly'    => true,
-									],
-									'short_description'   => [
-										'description' => __('Product short description in HTML format.', 'woocommerce'),
-										'type'        => 'string',
-										'context'     => ['view', 'edit'],
-									],
-									'description'         => [
-										'description' => __('Product full description in HTML format.', 'woocommerce'),
-										'type'        => 'string',
-										'context'     => ['view', 'edit'],
-									],
-									'on_sale'             => [
-										'description' => __('Is the product on sale?', 'woocommerce'),
-										'type'        => 'boolean',
-										'context'     => ['view', 'edit'],
-										'readonly'    => true,
-									],
-									'sku'                 => [
-										'description' => __('Unique identifier.', 'woocommerce'),
-										'type'        => 'string',
-										'context'     => ['view', 'edit'],
-									],
-									'prices'              => [
-										'description' => __('Price data provided using the smallest unit of the currency.', 'woocommerce'),
-										'type'        => 'object',
-										'context'     => ['view', 'edit'],
-										'readonly'    => true,
-										'properties'  => array_merge(
-											$this->get_store_currency_properties(),
-											[
-												'price'         => [
-													'description' => __('Current product price.', 'woocommerce'),
-													'type'        => 'string',
-													'context'     => ['view', 'edit'],
-													'readonly'    => true,
-												],
-												'regular_price' => [
-													'description' => __('Regular product price.', 'woocommerce'),
-													'type'        => 'string',
-													'context'     => ['view', 'edit'],
-													'readonly'    => true,
-												],
-												'sale_price'    => [
-													'description' => __('Sale product price, if applicable.', 'woocommerce'),
-													'type'        => 'string',
-													'context'     => ['view', 'edit'],
-													'readonly'    => true,
-												],
-												'price_range'   => [
-													'description' => __('Price range, if applicable.', 'woocommerce'),
-													'type'        => ['object', 'null'],
-													'context'     => ['view', 'edit'],
-													'readonly'    => true,
-													'properties'  => [
-														'min_amount' => [
-															'description' => __('Price amount.', 'woocommerce'),
-															'type'        => 'string',
-															'context'     => ['view', 'edit'],
-															'readonly'    => true,
-														],
-														'max_amount' => [
-															'description' => __('Price amount.', 'woocommerce'),
-															'type'        => 'string',
-															'context'     => ['view', 'edit'],
-															'readonly'    => true,
-														],
+							'properties' => [
+								'id'                  => [
+									'description' => __('Unique identifier for the resource.', 'woocommerce'),
+									'type'        => 'integer',
+									'context'     => ['view', 'edit'],
+									'readonly'    => true,
+								],
+								'name'                => [
+									'description' => __('Product name.', 'woocommerce'),
+									'type'        => 'string',
+									'context'     => ['view', 'edit'],
+								],
+								'slug'                => [
+									'description' => __('Product slug.', 'woocommerce'),
+									'type'        => 'string',
+									'context'     => ['view', 'edit'],
+								],
+								'parent'              => [
+									'description' => __('ID of the parent product, if applicable.', 'woocommerce'),
+									'type'        => 'integer',
+									'context'     => ['view', 'edit'],
+									'readonly'    => true,
+								],
+								'type'                => [
+									'description' => __('Product type.', 'woocommerce'),
+									'type'        => 'string',
+									'context'     => ['view', 'edit'],
+									'readonly'    => true,
+								],
+								'variation'           => [
+									'description' => __('Product variation attributes, if applicable.', 'woocommerce'),
+									'type'        => 'string',
+									'context'     => ['view', 'edit'],
+								],
+								'permalink'           => [
+									'description' => __('Product URL.', 'woocommerce'),
+									'type'        => 'string',
+									'format'      => 'uri',
+									'context'     => ['view', 'edit'],
+									'readonly'    => true,
+								],
+								'short_description'   => [
+									'description' => __('Product short description in HTML format.', 'woocommerce'),
+									'type'        => 'string',
+									'context'     => ['view', 'edit'],
+								],
+								'description'         => [
+									'description' => __('Product full description in HTML format.', 'woocommerce'),
+									'type'        => 'string',
+									'context'     => ['view', 'edit'],
+								],
+								'on_sale'             => [
+									'description' => __('Is the product on sale?', 'woocommerce'),
+									'type'        => 'boolean',
+									'context'     => ['view', 'edit'],
+									'readonly'    => true,
+								],
+								'sku'                 => [
+									'description' => __('Unique identifier.', 'woocommerce'),
+									'type'        => 'string',
+									'context'     => ['view', 'edit'],
+								],
+								'prices'              => [
+									'description' => __('Price data provided using the smallest unit of the currency.', 'woocommerce'),
+									'type'        => 'object',
+									'context'     => ['view', 'edit'],
+									'readonly'    => true,
+									'properties'  => array_merge(
+										$this->get_store_currency_properties(),
+										[
+											'price'         => [
+												'description' => __('Current product price.', 'woocommerce'),
+												'type'        => 'string',
+												'context'     => ['view', 'edit'],
+												'readonly'    => true,
+											],
+											'regular_price' => [
+												'description' => __('Regular product price.', 'woocommerce'),
+												'type'        => 'string',
+												'context'     => ['view', 'edit'],
+												'readonly'    => true,
+											],
+											'sale_price'    => [
+												'description' => __('Sale product price, if applicable.', 'woocommerce'),
+												'type'        => 'string',
+												'context'     => ['view', 'edit'],
+												'readonly'    => true,
+											],
+											'price_range'   => [
+												'description' => __('Price range, if applicable.', 'woocommerce'),
+												'type'        => ['object', 'null'],
+												'context'     => ['view', 'edit'],
+												'readonly'    => true,
+												'properties'  => [
+													'min_amount' => [
+														'description' => __('Price amount.', 'woocommerce'),
+														'type'        => 'string',
+														'context'     => ['view', 'edit'],
+														'readonly'    => true,
+													],
+													'max_amount' => [
+														'description' => __('Price amount.', 'woocommerce'),
+														'type'        => 'string',
+														'context'     => ['view', 'edit'],
+														'readonly'    => true,
 													],
 												],
-											]
-										),
-									],
-									'price_html'          => array(
-										'description' => __('Price string formatted as HTML.', 'woocommerce'),
-										'type'        => 'string',
-										'context'     => array('view', 'edit'),
-										'readonly'    => true,
+											],
+										]
 									),
-									'average_rating'      => [
-										'description' => __('Reviews average rating.', 'woocommerce'),
-										'type'        => 'string',
-										'context'     => ['view', 'edit'],
-										'readonly'    => true,
+								],
+								'price_html'          => array(
+									'description' => __('Price string formatted as HTML.', 'woocommerce'),
+									'type'        => 'string',
+									'context'     => array('view', 'edit'),
+									'readonly'    => true,
+								),
+								'average_rating'      => [
+									'description' => __('Reviews average rating.', 'woocommerce'),
+									'type'        => 'string',
+									'context'     => ['view', 'edit'],
+									'readonly'    => true,
+								],
+								'review_count'        => [
+									'description' => __('Amount of reviews that the product has.', 'woocommerce'),
+									'type'        => 'integer',
+									'context'     => ['view', 'edit'],
+									'readonly'    => true,
+								],
+								'images'              => [
+									'description' => __('List of images.', 'woocommerce'),
+									'type'        => 'array',
+									'context'     => ['view', 'edit'],
+									'items'       => [
+										'type'       => 'object',
+										'properties' => $this->image_attachment_schema->get_properties(),
 									],
-									'review_count'        => [
-										'description' => __('Amount of reviews that the product has.', 'woocommerce'),
-										'type'        => 'integer',
-										'context'     => ['view', 'edit'],
-										'readonly'    => true,
-									],
-									'images'              => [
-										'description' => __('List of images.', 'woocommerce'),
-										'type'        => 'array',
-										'context'     => ['view', 'edit'],
-										'items'       => [
-											'type'       => 'object',
-											'properties' => $this->image_attachment_schema->get_properties(),
-										],
-									],
-									'categories'          => [
-										'description' => __('List of categories, if applicable.', 'woocommerce'),
-										'type'        => 'array',
-										'context'     => ['view', 'edit'],
-										'items'       => [
-											'type'       => 'object',
-											'properties' => [
-												'id'   => [
-													'description' => __('Category ID', 'woocommerce'),
-													'type'        => 'number',
-													'context'     => ['view', 'edit'],
-													'readonly'    => true,
-												],
-												'name' => [
-													'description' => __('Category name', 'woocommerce'),
-													'type'        => 'string',
-													'context'     => ['view', 'edit'],
-													'readonly'    => true,
-												],
-												'slug' => [
-													'description' => __('Category slug', 'woocommerce'),
-													'type'        => 'string',
-													'context'     => ['view', 'edit'],
-													'readonly'    => true,
-												],
-												'link' => [
-													'description' => __('Category link', 'woocommerce'),
-													'type'        => 'string',
-													'context'     => ['view', 'edit'],
-													'readonly'    => true,
-												],
+								],
+								'categories'          => [
+									'description' => __('List of categories, if applicable.', 'woocommerce'),
+									'type'        => 'array',
+									'context'     => ['view', 'edit'],
+									'items'       => [
+										'type'       => 'object',
+										'properties' => [
+											'id'   => [
+												'description' => __('Category ID', 'woocommerce'),
+												'type'        => 'number',
+												'context'     => ['view', 'edit'],
+												'readonly'    => true,
+											],
+											'name' => [
+												'description' => __('Category name', 'woocommerce'),
+												'type'        => 'string',
+												'context'     => ['view', 'edit'],
+												'readonly'    => true,
+											],
+											'slug' => [
+												'description' => __('Category slug', 'woocommerce'),
+												'type'        => 'string',
+												'context'     => ['view', 'edit'],
+												'readonly'    => true,
+											],
+											'link' => [
+												'description' => __('Category link', 'woocommerce'),
+												'type'        => 'string',
+												'context'     => ['view', 'edit'],
+												'readonly'    => true,
 											],
 										],
-									]
+									],
 								]
-							],
+							]
 						],
 					],
 				],
@@ -1075,13 +1071,13 @@ class ProductSchema extends AbstractSchema
 	{
 		$variations = $product->get_children();
 
-		$variation_data = [];
+		$variation_data = null;
 
 		foreach ($variations as $variation_id) {
 			$variation = wc_get_product($variation_id);
 
 			if ($variation) {
-				$variation_data[] = [
+				$variation_data = [
 					'id' => $variation->get_id(),
 					'name' => $variation->get_name(),
 					'created_at' => $variation->get_date_created()->format('Y-m-d\TH:i:s\Z'),
