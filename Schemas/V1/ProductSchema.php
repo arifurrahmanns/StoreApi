@@ -844,7 +844,7 @@ class ProductSchema extends AbstractSchema
 			$variations[] = (object) [
 				'id'         => $variation_id,
 				'attributes' => array_values($attribute_data),
-				"item" => $this->get_variation_items($product)
+				"item" => $this->get_variation_items($product, $variation_id)
 			];
 		}
 
@@ -1067,53 +1067,47 @@ class ProductSchema extends AbstractSchema
 	 * @param \WC_Product $product Product instance.
 	 * @return array
 	 */
-	public function get_variation_items($product)
+	public function get_variation_items($product, $variation_id)
 	{
-		$variations = $product->get_children();
+		$variation = wc_get_product($variation_id);
 
-		$variation_data = null;
 
-		foreach ($variations as $variation_id) {
-			$variation = wc_get_product($variation_id);
+		$variation_data = [
+			'id' => $variation->get_id(),
+			'name' => $variation->get_name(),
+			'created_at' => $variation->get_date_created()->format('Y-m-d\TH:i:s\Z'),
+			'updated_at' => $variation->get_date_modified()->format('Y-m-d\TH:i:s\Z'),
+			'downloadable' => $variation->is_downloadable(),
+			'virtual' => $variation->is_virtual(),
+			'permalink' => $variation->get_permalink(),
+			'sku' => $variation->get_sku(),
+			'description'         => $this->prepare_html_response(wc_format_content(wp_kses_post($product->get_description()))),
+			'on_sale'             => $product->is_on_sale(),
+			'prices'              => (object) $this->prepare_product_price_response($variation),
+			'price_html'          => $this->prepare_html_response($variation->get_price_html()),
+			'average_rating'      => (string) $product->get_average_rating(),
+			'review_count'        => $product->get_review_count(),
+			'taxable' => $variation->is_taxable(),
+			'tax_status' => $variation->get_tax_status(),
+			'tax_class' => $variation->get_tax_class(),
+			'managing_stock' => $variation->managing_stock(),
+			'stock_quantity' => $variation->get_stock_quantity(),
+			'in_stock' => $variation->is_in_stock(),
+			'backorders_allowed' => $variation->backorders_allowed(),
+			'backordered' => $variation->is_on_backorder(),
+			'purchaseable' => $variation->is_purchasable(),
+			'visible' => $variation->is_visible(),
+			'on_sale' => $variation->is_on_sale(),
+			'weight' => $variation->get_weight(),
+			'shipping_class' => $variation->get_shipping_class(),
+			'shipping_class_id' => $variation->get_shipping_class_id(),
+			'images' => $this->get_images($variation),
 
-			if ($variation) {
-				$variation_data = [
-					'id' => $variation->get_id(),
-					'name' => $variation->get_name(),
-					'created_at' => $variation->get_date_created()->format('Y-m-d\TH:i:s\Z'),
-					'updated_at' => $variation->get_date_modified()->format('Y-m-d\TH:i:s\Z'),
-					'downloadable' => $variation->is_downloadable(),
-					'virtual' => $variation->is_virtual(),
-					'permalink' => $variation->get_permalink(),
-					'sku' => $variation->get_sku(),
-					'description'         => $this->prepare_html_response(wc_format_content(wp_kses_post($product->get_description()))),
-					'on_sale'             => $product->is_on_sale(),
-					'prices'              => (object) $this->prepare_product_price_response($variation),
-					'price_html'          => $this->prepare_html_response($variation->get_price_html()),
-					'average_rating'      => (string) $product->get_average_rating(),
-					'review_count'        => $product->get_review_count(),
-					'taxable' => $variation->is_taxable(),
-					'tax_status' => $variation->get_tax_status(),
-					'tax_class' => $variation->get_tax_class(),
-					'managing_stock' => $variation->managing_stock(),
-					'stock_quantity' => $variation->get_stock_quantity(),
-					'in_stock' => $variation->is_in_stock(),
-					'backorders_allowed' => $variation->backorders_allowed(),
-					'backordered' => $variation->is_on_backorder(),
-					'purchaseable' => $variation->is_purchasable(),
-					'visible' => $variation->is_visible(),
-					'on_sale' => $variation->is_on_sale(),
-					'weight' => $variation->get_weight(),
-					'shipping_class' => $variation->get_shipping_class(),
-					'shipping_class_id' => $variation->get_shipping_class_id(),
-					'images' => $this->get_images($variation),
+			'downloads' => $variation->get_downloads(),
+			'download_limit' => $variation->get_download_limit(),
+			'download_expiry' => $variation->get_download_expiry(),
+		];
 
-					'downloads' => $variation->get_downloads(),
-					'download_limit' => $variation->get_download_limit(),
-					'download_expiry' => $variation->get_download_expiry(),
-				];
-			}
-		}
 
 		return $variation_data;
 	}
